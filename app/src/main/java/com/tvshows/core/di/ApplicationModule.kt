@@ -2,7 +2,7 @@ package com.tvshows.core.di
 
 import android.content.Context
 import com.tvshows.AndroidApplication
-import com.tvshows.features.tvshows.BASE_URL
+import com.tvshows.features.tvshows.TVShowsApi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +18,7 @@ class ApplicationModule(private val application: AndroidApplication) {
 
     @Provides @Singleton fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(TVShowsApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.
                         createWithScheduler(Schedulers.io()))
