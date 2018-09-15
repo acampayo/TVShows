@@ -16,9 +16,9 @@ internal interface TVShowsApi {
     }
 
     @GET(POPULAR_TV_SHOWS)
-    fun popularTvShows(@Query(API_KEY_PARAM) apiKey: String, page: Int)
+    fun popularTvShows(@Query(API_KEY_PARAM) apiKey: String, @Query(PAGE_PARAM) page: Int)
 
     @GET(SIMILAR_TV_SHOWS)
-    fun similarTvShows(@Path(TV_SHOW_ID_PARAM) tvShowId: Int,
-                       @Query(API_KEY_PARAM) apiKey: String, page: Int)
+    fun similarTvShows(@Path(TV_SHOW_ID_PARAM) tvShowId: Int, @Query(API_KEY_PARAM) apiKey: String,
+                       @Query(PAGE_PARAM) page: Int)
 }
