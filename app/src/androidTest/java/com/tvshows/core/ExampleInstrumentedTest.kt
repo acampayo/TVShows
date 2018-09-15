@@ -1,4 +1,4 @@
-package com.tvshows.tvshows
+package com.tvshows.core
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
