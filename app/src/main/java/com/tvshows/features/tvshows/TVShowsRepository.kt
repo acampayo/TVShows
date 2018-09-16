@@ -1,10 +1,10 @@
 package com.tvshows.features.tvshows
 
-import com.fernandocejas.sample.core.exception.Failure
-import com.fernandocejas.sample.core.exception.Failure.NetworkConnection
-import com.fernandocejas.sample.core.functional.Either
-import com.fernandocejas.sample.core.functional.Either.Left
-import com.fernandocejas.sample.core.functional.Either.Right
+import com.tvshows.core.exception.Failure
+import com.tvshows.core.exception.Failure.NetworkConnection
+import com.tvshows.core.functional.Either
+import com.tvshows.core.functional.Either.Left
+import com.tvshows.core.functional.Either.Right
 import com.tvshows.core.functional.NetworkHandler
 import retrofit2.Call
 import javax.inject.Inject
@@ -20,7 +20,8 @@ interface  TVShowsRepository {
 
         override fun popularTvShows(apiKey: String, page: Int): Either<Failure, List<TVShow>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.popularTvShows(apiKey, page), { it.results }, TVShowsEntity())
+                true -> request(service.popularTvShows(apiKey, page), { it.results },
+                        TVShowsEntity())
                 false, null -> Left(NetworkConnection())
             }
         }
@@ -28,12 +29,14 @@ interface  TVShowsRepository {
         override fun similarTvShows(tvShowId: Int, apiKey: String, page: Int):
                 Either<Failure, List<TVShow>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.similarTvShows(tvShowId, apiKey, page), { it.results }, TVShowsEntity())
+                true -> request(service.similarTvShows(tvShowId, apiKey, page), { it.results },
+                        TVShowsEntity())
                 false, null -> Left(NetworkConnection())
             }
         }
 
-        private fun <T, R> request(call: Call<T>, transform: (T) -> R, default: T): Either<Failure, R> {
+        private fun <T, R> request(call: Call<T>, transform: (T) -> R, default: T):
+                Either<Failure, R> {
             return try {
                 val response = call.execute()
                 when (response.isSuccessful) {

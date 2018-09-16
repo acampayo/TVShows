@@ -16,7 +16,8 @@ import javax.inject.Singleton
 class ApplicationModule(private val application: AndroidApplication) {
 
     @Provides @Singleton fun provideApplicationContext(): Context = application
-    @Provides @Singleton fun thShowsRepositoryProvider(network: TVShowsRepository.Network): TVShowsRepository = network
+    @Provides @Singleton fun thShowsRepositoryProvider(
+            network: TVShowsRepository.Network): TVShowsRepository = network
 
     @Provides @Singleton fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
