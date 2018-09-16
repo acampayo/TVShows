@@ -8,7 +8,7 @@ import retrofit2.http.Query
 internal interface TVShowsApi {
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3"
-        private const val API_KEY = "cb87aff7d1a8dec7fe7ad2e7c183358f"
+        const val API_KEY = "cb87aff7d1a8dec7fe7ad2e7c183358f"
         private const val API_KEY_PARAM = "api_key"
         private const val PAGE_PARAM = "page"
         private const val TV_SHOW_ID_PARAM = "tv_id"

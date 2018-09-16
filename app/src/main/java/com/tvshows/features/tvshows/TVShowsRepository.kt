@@ -5,33 +5,34 @@ import com.tvshows.core.exception.Failure.NetworkConnection
 import com.tvshows.core.functional.Either
 import com.tvshows.core.functional.Either.Left
 import com.tvshows.core.functional.Either.Right
-import com.tvshows.core.functional.NetworkHandler
+import com.tvshows.core.platform.NetworkHandler
+import io.reactivex.Observable
 import retrofit2.Call
 import javax.inject.Inject
 
 interface  TVShowsRepository {
 
-    fun popularTvShows(apiKey: String, page: Int): Either<Failure, List<TVShow>>
-    fun similarTvShows(tvShowId: Int, apiKey: String, page: Int): Either<Failure, List<TVShow>>
+    fun popularTvShows(page: Int): Observable<Either<Failure, List<TVShow>>>
+    fun similarTvShows(tvShowId: Int, page: Int): Observable<Either<Failure, List<TVShow>>>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler,
                         private val service: TVShowsService) : TVShowsRepository {
 
-        override fun popularTvShows(apiKey: String, page: Int): Either<Failure, List<TVShow>> {
+        override fun popularTvShows(page: Int): Observable<Either<Failure, List<TVShow>>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.popularTvShows(apiKey, page), { it.results },
-                        TVShowsEntity())
-                false, null -> Left(NetworkConnection())
+                true -> Observable.just(request(service.popularTvShows(TVShowsApi.API_KEY, page),
+                        { it.results }, TVShowsEntity()))
+                false, null -> Observable.just(Left(NetworkConnection()))
             }
         }
 
-        override fun similarTvShows(tvShowId: Int, apiKey: String, page: Int):
-                Either<Failure, List<TVShow>> {
+        override fun similarTvShows(tvShowId: Int, page: Int):
+                Observable<Either<Failure, List<TVShow>>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.similarTvShows(tvShowId, apiKey, page), { it.results },
-                        TVShowsEntity())
-                false, null -> Left(NetworkConnection())
+                true -> Observable.just(request(service.similarTvShows(tvShowId, TVShowsApi.API_KEY,
+                        page), { it.results }, TVShowsEntity()))
+                false, null -> Observable.just(Left(NetworkConnection()))
             }
         }
 

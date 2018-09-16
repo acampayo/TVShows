@@ -1,4 +1,4 @@
-package com.tvshows.core.functional
+package com.tvshows.core.platform
 
 import android.content.Context
 import com.tvshows.core.extension.networkInfo
