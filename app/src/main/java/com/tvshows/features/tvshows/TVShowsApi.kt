@@ -1,5 +1,6 @@
 package com.tvshows.features.tvshows
 
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -16,9 +17,9 @@ internal interface TVShowsApi {
     }
 
     @GET(POPULAR_TV_SHOWS)
-    fun popularTvShows(@Query(API_KEY_PARAM) apiKey: String, @Query(PAGE_PARAM) page: Int)
+    fun popularTvShows(@Query(API_KEY_PARAM) apiKey: String, @Query(PAGE_PARAM) page: Int): Call<TVShowsEntity>
 
     @GET(SIMILAR_TV_SHOWS)
     fun similarTvShows(@Path(TV_SHOW_ID_PARAM) tvShowId: Int, @Query(API_KEY_PARAM) apiKey: String,
-                       @Query(PAGE_PARAM) page: Int)
+                       @Query(PAGE_PARAM) page: Int): Call<TVShowsEntity>
 }

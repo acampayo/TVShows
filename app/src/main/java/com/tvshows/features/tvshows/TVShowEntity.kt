@@ -1,4 +1,4 @@
 package com.tvshows.features.tvshows
 
-data class TVShowsEntity(val page: Int,
-                         val results: List<TVShow>)
+data class TVShowsEntity(val page: Int = 0,
+                         val results: List<TVShow> = emptyList())

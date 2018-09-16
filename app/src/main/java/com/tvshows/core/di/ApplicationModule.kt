@@ -3,6 +3,7 @@ package com.tvshows.core.di
 import android.content.Context
 import com.tvshows.AndroidApplication
 import com.tvshows.features.tvshows.TVShowsApi
+import com.tvshows.features.tvshows.TVShowsRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 class ApplicationModule(private val application: AndroidApplication) {
 
     @Provides @Singleton fun provideApplicationContext(): Context = application
+    @Provides @Singleton fun thShowsRepositoryProvider(network: TVShowsRepository.Network): TVShowsRepository = network
 
     @Provides @Singleton fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
