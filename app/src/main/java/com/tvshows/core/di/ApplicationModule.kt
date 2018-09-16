@@ -23,8 +23,6 @@ class ApplicationModule(private val application: AndroidApplication) {
         return Retrofit.Builder()
                 .baseUrl(TVShowsApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.
-                        createWithScheduler(Schedulers.io()))
                 .build()
     }
 
