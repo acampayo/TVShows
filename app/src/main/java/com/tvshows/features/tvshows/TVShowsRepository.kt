@@ -12,27 +12,26 @@ import javax.inject.Inject
 
 interface  TVShowsRepository {
 
-    fun popularTvShows(page: Int): Observable<Either<Failure, List<TVShow>>>
-    fun similarTvShows(tvShowId: Int, page: Int): Observable<Either<Failure, List<TVShow>>>
+    fun popularTvShows(page: Int): Either<Failure, List<TVShow>>
+    fun similarTvShows(tvShowId: Int, page: Int): Either<Failure, List<TVShow>>
 
     class Network
     @Inject constructor(private val networkHandler: NetworkHandler,
                         private val service: TVShowsService) : TVShowsRepository {
 
-        override fun popularTvShows(page: Int): Observable<Either<Failure, List<TVShow>>> {
+        override fun popularTvShows(page: Int): Either<Failure, List<TVShow>> {
             return when (networkHandler.isConnected) {
-                true -> Observable.just(request(service.popularTvShows(TVShowsApi.API_KEY, page),
-                        { it.results }, TVShowsEntity()))
-                false, null -> Observable.just(Left(NetworkConnection()))
+                true -> request(service.popularTvShows(TVShowsApi.API_KEY, page), { it.results },
+                        TVShowsEntity())
+                false, null -> Left(NetworkConnection())
             }
         }
 
-        override fun similarTvShows(tvShowId: Int, page: Int):
-                Observable<Either<Failure, List<TVShow>>> {
+        override fun similarTvShows(tvShowId: Int, page: Int): Either<Failure, List<TVShow>> {
             return when (networkHandler.isConnected) {
-                true -> Observable.just(request(service.similarTvShows(tvShowId, TVShowsApi.API_KEY,
-                        page), { it.results }, TVShowsEntity()))
-                false, null -> Observable.just(Left(NetworkConnection()))
+                true -> request(service.similarTvShows(tvShowId, TVShowsApi.API_KEY, page),
+                        { it.results }, TVShowsEntity())
+                false, null -> Left(NetworkConnection())
             }
         }
 
@@ -45,6 +44,7 @@ interface  TVShowsRepository {
                     false -> Left(Failure.ServerError())
                 }
             } catch (exception: Throwable) {
+                exception?.printStackTrace()
                 Left(Failure.ServerError())
             }
         }
