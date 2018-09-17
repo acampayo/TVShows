@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName
 
 data class TVShow(
         val id: Int,
-        @SerializedName("posterPath")
-        val poster_path: String,
-        @SerializedName("backdropPath")
-        val backdrop_path: String,
-        @SerializedName("voteAverage")
-        val vote_average: Int,
+        @SerializedName("poster_path")
+        val posterPath: String,
+        @SerializedName("backdrop_path")
+        val backdropPath: String,
+        @SerializedName("vote_average")
+        val voteAverage: Double,
         val overview: String,
         val name: String
 ) : Parcelable {
@@ -19,15 +19,15 @@ data class TVShow(
             parcel.readInt(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readInt(),
+            parcel.readDouble(),
             parcel.readString(),
             parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
-        parcel.writeString(poster_path)
-        parcel.writeString(backdrop_path)
-        parcel.writeInt(vote_average)
+        parcel.writeString(posterPath)
+        parcel.writeString(backdropPath)
+        parcel.writeDouble(voteAverage)
         parcel.writeString(overview)
         parcel.writeString(name)
     }
