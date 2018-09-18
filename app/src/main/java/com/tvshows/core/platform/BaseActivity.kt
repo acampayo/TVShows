@@ -1,12 +1,12 @@
 package com.tvshows.core.platform
 
 import android.arch.lifecycle.ViewModelProvider
-import android.graphics.Color
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.tvshows.AndroidApplication
+import com.tvshows.R
 import com.tvshows.core.di.ApplicationComponent
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 Snackbar.LENGTH_INDEFINITE)
 
         snackBar.setAction(actionText) { _ -> action.invoke() }
-        snackBar.setActionTextColor(Color.WHITE)
+        snackBar.setActionTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         snackBar.show()
     }
 }
