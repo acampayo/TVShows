@@ -44,7 +44,7 @@ interface  TVShowsRepository {
                     false -> Left(Failure.ServerError())
                 }
             } catch (exception: Throwable) {
-                exception?.printStackTrace()
+                exception.printStackTrace()
                 Left(Failure.ServerError())
             }
         }
