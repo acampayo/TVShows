@@ -14,8 +14,8 @@ import kotlin.properties.Delegates
 class TVShowsAdapter
 @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val TV_SHOW = 0
-    private val LOADING = 1
+    private val tvShow = 0
+    private val loading = 1
 
     internal var isLoading: Boolean by Delegates.observable(false) {
         _, _, _ -> notifyDataSetChanged()
@@ -31,7 +31,7 @@ class TVShowsAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
-            TV_SHOW -> ViewHolder(LayoutInflater.from(parent.context)
+            tvShow -> ViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.adapter_tvshow, parent, false))
 
             else -> LoadingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_loading, parent, false))
@@ -40,8 +40,8 @@ class TVShowsAdapter
 
     override fun getItemViewType(position: Int): Int {
         return when(position < tvShows.size) {
-            true -> TV_SHOW
-            false -> LOADING
+            true -> tvShow
+            false -> loading
         }
     }
 
