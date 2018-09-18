@@ -14,7 +14,7 @@ data class TVShow(
         val voteAverage: Double,
         val overview: String,
         val name: String
-) : Parcelable {
+): Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString(),
@@ -22,6 +22,9 @@ data class TVShow(
             parcel.readDouble(),
             parcel.readString(),
             parcel.readString())
+
+    fun absolutePosterUrl() = TVShowsApi.IMAGE_URL + posterPath
+    fun absoluteBackdropUrl() = TVShowsApi.IMAGE_URL + backdropPath
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
