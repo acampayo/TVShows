@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">TVShows</string>
+    <string name="app_name">TV Shows</string>
     <string name="network_connection">There is no network connection</string>
     <string name="server_error">Unexpected Server Error</string>
     <string name="empty_message">There are no tv shows</string>
     <string name="action_reload">Reload</string>
+    <string name="similar_tv_shows">Similar TV Shows</string>
+    <string name="title_activity_tvshow_detail">TVShowDetailActivity</string>
 </resources>

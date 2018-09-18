@@ -2,11 +2,11 @@ package com.tvshows.features.tvshows
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import com.tvshows.R
 import com.tvshows.core.exception.Failure
@@ -48,7 +48,9 @@ class PopularTVShowsActivity : BaseActivity() {
         })
 
         tvShowsAdapter.clickListener = {
-            Log.d("testtt", it.name)
+            var i = Intent(this, TVShowDetailActivity::class.java)
+            i.putExtra(TVShow::class.simpleName, it)
+            startActivity(i)
         }
     }
 
