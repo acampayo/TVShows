@@ -6,7 +6,6 @@ import com.tvshows.core.functional.Either
 import com.tvshows.core.functional.Either.Left
 import com.tvshows.core.functional.Either.Right
 import com.tvshows.core.platform.NetworkHandler
-import io.reactivex.Observable
 import retrofit2.Call
 import javax.inject.Inject
 
@@ -21,7 +20,7 @@ interface  TVShowsRepository {
 
         override fun popularTvShows(page: Int): Either<Failure, List<TVShow>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.popularTvShows(TVShowsApi.API_KEY, page), { it.results },
+                true -> request(service.popularTvShows(page), { it.results },
                         TVShowsEntity())
                 false, null -> Left(NetworkConnection())
             }
@@ -29,7 +28,7 @@ interface  TVShowsRepository {
 
         override fun similarTvShows(tvShowId: Int, page: Int): Either<Failure, List<TVShow>> {
             return when (networkHandler.isConnected) {
-                true -> request(service.similarTvShows(tvShowId, TVShowsApi.API_KEY, page),
+                true -> request(service.similarTvShows(tvShowId, page),
                         { it.results }, TVShowsEntity())
                 false, null -> Left(NetworkConnection())
             }

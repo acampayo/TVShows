@@ -9,8 +9,7 @@ internal interface TVShowsApi {
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val IMAGE_URL = "http://image.tmdb.org/t/p/w500"
-        const val API_KEY = "cb87aff7d1a8dec7fe7ad2e7c183358f"
-        private const val API_KEY_PARAM = "api_key"
+        const val API_KEY_PARAM = "api_key"
         private const val PAGE_PARAM = "page"
         private const val TV_SHOW_ID_PARAM = "tv_id"
         private const val POPULAR_TV_SHOWS = "tv/popular"
@@ -18,10 +17,9 @@ internal interface TVShowsApi {
     }
 
     @GET(POPULAR_TV_SHOWS)
-    fun popularTvShows(@Query(API_KEY_PARAM) apiKey: String,
-                       @Query(PAGE_PARAM) page: Int): Call<TVShowsEntity>
+    fun popularTvShows(@Query(PAGE_PARAM) page: Int): Call<TVShowsEntity>
 
     @GET(SIMILAR_TV_SHOWS)
-    fun similarTvShows(@Path(TV_SHOW_ID_PARAM) tvShowId: Int, @Query(API_KEY_PARAM) apiKey: String,
+    fun similarTvShows(@Path(TV_SHOW_ID_PARAM) tvShowId: Int,
                        @Query(PAGE_PARAM) page: Int): Call<TVShowsEntity>
 }
