@@ -46,7 +46,7 @@ interface  TVShowsRepository {
                     .subscribe({
                         try {
                             when (it.isSuccessful) {
-                                true -> onResult(Right(transform((it.body() ?: default))))
+                                true -> onResult(Right(transform(it.body() ?: default)))
                                 false -> onResult(Left(Failure.ServerError()))
                             }
                         } catch (exception: Throwable) {
