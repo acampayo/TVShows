@@ -43,7 +43,7 @@ interface  TVShowsRepository {
                                    onResult: (Either<Failure, R>) -> Unit = {}) {
             call.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
+                    .subscribe({
                         try {
                             when (it.isSuccessful) {
                                 true -> onResult(Right(transform((it.body() ?: default))))
@@ -53,7 +53,10 @@ interface  TVShowsRepository {
                             exception.printStackTrace()
                             onResult(Left(Failure.ServerError()))
                         }
-                    }
+                    }, {
+                        it.printStackTrace()
+                        onResult(Left(Failure.ServerError()))
+                    })
         }
     }
 }
