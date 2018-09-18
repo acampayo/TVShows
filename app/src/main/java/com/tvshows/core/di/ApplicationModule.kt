@@ -7,8 +7,10 @@ import com.tvshows.features.tvshows.TVShowsApi
 import com.tvshows.features.tvshows.TVShowsRepository
 import dagger.Module
 import dagger.Provides
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -25,6 +27,8 @@ class ApplicationModule(private val application: AndroidApplication) {
                 .baseUrl(TVShowsApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(createHttpClient())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.
+                        createWithScheduler(Schedulers.io()))
                 .build()
     }
 
