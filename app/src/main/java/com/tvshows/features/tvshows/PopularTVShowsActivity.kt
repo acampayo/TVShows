@@ -48,7 +48,7 @@ class PopularTVShowsActivity : BaseActivity() {
         })
 
         tvShowsAdapter.clickListener = {
-            var i = Intent(this, TVShowDetailActivity::class.java)
+            val i = Intent(this, TVShowDetailActivity::class.java)
             i.putExtra(TVShow::class.simpleName, it)
             startActivity(i)
         }
@@ -60,14 +60,14 @@ class PopularTVShowsActivity : BaseActivity() {
         viewModel.failure.observe(this, Observer(::handleFailure))
     }
 
-    fun loadPopularTvShows() {
+    private fun loadPopularTvShows() {
         tvShowsList.visibility = View.GONE
         emptyView.visibility = View.GONE
         progress.visibility = View.VISIBLE
         viewModel.loadPopularTvShows()
     }
 
-    fun showPopularTvShows(tvShows: List<TVShow>?) {
+    private fun showPopularTvShows(tvShows: List<TVShow>?) {
         tvShowsList.visibility = View.VISIBLE
         emptyView.visibility = View.GONE
         tvShowsAdapter.tvShows = tvShows.orEmpty()
@@ -75,14 +75,14 @@ class PopularTVShowsActivity : BaseActivity() {
         tvShowsAdapter.isLoading = false
     }
 
-    fun handleFailure(failure: Failure?) {
+    private fun handleFailure(failure: Failure?) {
         when (failure) {
             is Failure.NetworkConnection -> showFailure(R.string.network_connection)
             is Failure.ServerError -> showFailure(R.string.server_error)
         }
     }
 
-    fun showFailure(@StringRes message: Int) {
+    private fun showFailure(@StringRes message: Int) {
         tvShowsList.visibility = View.GONE
         emptyView.visibility = View.VISIBLE
         progress.visibility = View.GONE

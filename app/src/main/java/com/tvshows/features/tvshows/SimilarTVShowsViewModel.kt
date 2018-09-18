@@ -12,7 +12,7 @@ class SimilarTVShowsViewModel
     var tvShows: MutableLiveData<MutableList<TVShow>> = MutableLiveData()
 
     fun loadSimilarTvShows(tvShowId: Int) {
-        getSimilarTVShows(page, tvShowId) {
+        getSimilarTVShows(tvShowId, page) {
             it.either(::handleFailure, ::handleTVShows)
         }
     }

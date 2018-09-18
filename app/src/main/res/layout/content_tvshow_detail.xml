@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.tvshows.features.tvshows.TVShowDetailActivity"
     tools:showIn="@layout/activity_tvshow_detail">
 
     <LinearLayout
         android:orientation="vertical"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,6 +28,19 @@
             android:textColor="@color/colorAccent"
             android:layout_margin="@dimen/default_margin"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tvShowsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:background="@android:color/white" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
