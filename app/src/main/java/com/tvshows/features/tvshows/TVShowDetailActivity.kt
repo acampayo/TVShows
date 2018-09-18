@@ -91,11 +91,11 @@ class TVShowDetailActivity : BaseActivity() {
 
     private fun handleFailure(failure: Failure?) {
         when (failure) {
-            is Failure.NetworkConnection -> showFailure(R.string.network_connection)
-            is Failure.ServerError -> showFailure(R.string.server_error)
+            is Failure.NetworkConnection -> showFailure(getString(R.string.network_connection))
+            is Failure.ServerError -> showFailure(getString(R.string.server_error))
         }
     }
-    private fun showFailure(@StringRes message: Int) {
+    private fun showFailure(message: String) {
         progress.visibility = View.GONE
         notify(message, R.string.action_reload, ::loadSimilarTvShows)
     }

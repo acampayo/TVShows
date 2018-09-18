@@ -19,7 +19,7 @@ abstract class BaseActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    internal fun notify(@StringRes message: Int, @StringRes actionText: Int, action: () -> Any) {
+    internal fun notify(message: String, @StringRes actionText: Int, action: () -> Any) {
         val snackBar = Snackbar.make(findViewById(android.R.id.content), message,
                 Snackbar.LENGTH_INDEFINITE)
 

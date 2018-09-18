@@ -1,6 +1,8 @@
 package com.tvshows.features.tvshows
 
+import com.google.gson.Gson
 import com.tvshows.core.exception.Failure
+import com.tvshows.core.exception.Failure.APIError
 import com.tvshows.core.exception.Failure.NetworkConnection
 import com.tvshows.core.functional.Either
 import com.tvshows.core.functional.Either.Left
@@ -45,10 +47,11 @@ interface  TVShowsRepository {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         try {
-                            when (it.isSuccessful) {
-                                true -> onResult(Right(transform(it.body() ?: default)))
-                                false -> onResult(Left(Failure.ServerError()))
+                            val result = when (it.isSuccessful) {
+                                true -> Right(transform(it.body() ?: default))
+                                false -> Left(handleApiError(it))
                             }
+                            onResult(result)
                         } catch (exception: Throwable) {
                             exception.printStackTrace()
                             onResult(Left(Failure.ServerError()))
@@ -57,6 +60,13 @@ interface  TVShowsRepository {
                         it.printStackTrace()
                         onResult(Left(Failure.ServerError()))
                     })
+        }
+
+        private fun<T> handleApiError(response: Response<T>): Failure {
+            return when(response.code()) {
+                400, 401 -> Gson().fromJson(response.errorBody()?.string(), APIError::class.java)
+                else -> Failure.ServerError()
+            }
         }
     }
 }
