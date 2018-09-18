@@ -5,14 +5,14 @@ import com.tvshows.core.extension.addValues
 import com.tvshows.core.platform.BaseViewModel
 import javax.inject.Inject
 
-class PopularTVShowsViewModel
-@Inject constructor(private val getPopularTVShows: GetPopularTVShows): BaseViewModel() {
+class SimilarTVShowsViewModel
+@Inject constructor(private val getSimilarTVShows: GetSimilarTVShows): BaseViewModel() {
 
     var page = 1
     var tvShows: MutableLiveData<MutableList<TVShow>> = MutableLiveData()
 
-    fun loadPopularTvShows() {
-        getPopularTVShows(page) {
+    fun loadSimilarTvShows(tvShowId: Int) {
+        getSimilarTVShows(page, tvShowId) {
             it.either(::handleFailure, ::handleTVShows)
         }
     }
