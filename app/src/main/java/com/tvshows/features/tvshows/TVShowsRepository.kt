@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.tvshows.core.exception.Failure
 import com.tvshows.core.exception.Failure.APIError
 import com.tvshows.core.exception.Failure.NetworkConnection
+import com.tvshows.core.exception.Failure.ServerError
 import com.tvshows.core.functional.Either
 import com.tvshows.core.functional.Either.Left
 import com.tvshows.core.functional.Either.Right
@@ -54,18 +55,18 @@ interface  TVShowsRepository {
                             onResult(result)
                         } catch (exception: Throwable) {
                             exception.printStackTrace()
-                            onResult(Left(Failure.ServerError()))
+                            onResult(Left(ServerError()))
                         }
                     }, {
                         it.printStackTrace()
-                        onResult(Left(Failure.ServerError()))
+                        onResult(Left(ServerError()))
                     })
         }
 
         private fun<T> handleApiError(response: Response<T>): Failure {
             return when(response.code()) {
                 400, 401 -> Gson().fromJson(response.errorBody()?.string(), APIError::class.java)
-                else -> Failure.ServerError()
+                else -> ServerError()
             }
         }
     }
