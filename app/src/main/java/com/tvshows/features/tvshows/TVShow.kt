@@ -5,15 +5,15 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class TVShow(
-        val id: Int,
+        val id: Int = 0,
         @SerializedName("poster_path")
-        val posterPath: String,
+        val posterPath: String = "",
         @SerializedName("backdrop_path")
-        val backdropPath: String,
+        val backdropPath: String = "",
         @SerializedName("vote_average")
-        val voteAverage: Double,
-        val overview: String,
-        val name: String
+        val voteAverage: Double = 0.0,
+        val overview: String = "",
+        val name: String = ""
 ): Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
