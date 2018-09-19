@@ -1,7 +1,7 @@
-package com.tvshows.core
+package com.tvshows.features.tvshows
 
 import com.tvshows.AndroidTest
-import com.tvshows.core.functional.Either.Right
+import com.tvshows.core.functional.Either
 import com.tvshows.features.tvshows.GetPopularTVShows
 import com.tvshows.features.tvshows.PopularTVShowsViewModel
 import com.tvshows.features.tvshows.TVShow
@@ -11,38 +11,38 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import kotlin.test.assertEquals
 
-class PopularTVShowsViewModelTest: AndroidTest() {
+class SimilarTVShowsViewModelTest: AndroidTest() {
 
-    private lateinit var popularTVShowsViewModel: PopularTVShowsViewModel
+    private lateinit var similarTVShowsViewModel: SimilarTVShowsViewModel
 
     @Mock
-    private lateinit var getPopularTVShows: GetPopularTVShows
+    private lateinit var getSimilarTVShows: GetSimilarTVShows
 
     @Before
     fun setUp() {
-        popularTVShowsViewModel = PopularTVShowsViewModel(getPopularTVShows)
+        similarTVShowsViewModel = SimilarTVShowsViewModel(getSimilarTVShows)
     }
 
     @Test
-    fun loadPopularTVShows() {
+    fun loadSimilarTVShows() {
         val tvShowsList = listOf(
                 TVShow(1396,
-                "/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg",
-                "/eSzpy96DwBujGFj0xMbXBcGcfxX.jpg",
-                8.1,
-                "",
-                "Breaking Bad"),
+                        "/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg",
+                        "/eSzpy96DwBujGFj0xMbXBcGcfxX.jpg",
+                        8.1,
+                        "",
+                        "Breaking Bad"),
                 TVShow(1399,
-                "/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg",
-                "/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg",
-                7.91,
-                "",
-                "Game of Thrones")
-                )
+                        "/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg",
+                        "/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg",
+                        7.91,
+                        "",
+                        "Game of Thrones")
+        )
 
-        Mockito.`when`(getPopularTVShows(1)).thenAnswer { Right(tvShowsList) }
+        Mockito.`when`(getSimilarTVShows(1, 1396)).thenAnswer { Either.Right(tvShowsList) }
 
-        popularTVShowsViewModel.tvShows.observeForever {
+        similarTVShowsViewModel.tvShows.observeForever {
             assertEquals(it!!.size, 1)
 
             assertEquals(it[0].id, 1396)
@@ -60,6 +60,6 @@ class PopularTVShowsViewModelTest: AndroidTest() {
             assertEquals(it[1].name, "Game of Thrones")
         }
 
-        popularTVShowsViewModel.loadPopularTvShows()
+        similarTVShowsViewModel.loadSimilarTvShows(1396)
     }
 }
