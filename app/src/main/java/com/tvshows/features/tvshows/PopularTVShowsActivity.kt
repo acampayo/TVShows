@@ -18,7 +18,7 @@ class PopularTVShowsActivity : BaseActivity() {
 
     @Inject lateinit var tvShowsAdapter: TVShowsAdapter
 
-    private lateinit var viewModel: PopularTVShowsViewModel
+    lateinit var viewModel: PopularTVShowsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
