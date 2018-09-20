@@ -65,8 +65,10 @@ class TVShowDetailActivity : BaseActivity() {
                 val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
 
                 if (visibleItemCount + pastVisibleItems >= totalItemCount && !tvShowsAdapter.isLoading) {
-                    viewModel.loadSimilarTvShows(tvShow.id)
-                    tvShowsAdapter.isLoading = true
+                    tvShowsList.post {
+                        viewModel.loadSimilarTvShows(tvShow.id)
+                        tvShowsAdapter.isLoading = true
+                    }
                 }
             }
         })

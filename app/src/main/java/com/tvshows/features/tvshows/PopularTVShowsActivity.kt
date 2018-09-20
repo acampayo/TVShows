@@ -41,8 +41,10 @@ class PopularTVShowsActivity : BaseActivity() {
                 val pastVisibleItems = gridLayoutManager.findFirstVisibleItemPosition()
 
                 if (visibleItemCount + pastVisibleItems >= totalItemCount && !tvShowsAdapter.isLoading) {
-                    viewModel.loadPopularTvShows()
-                    tvShowsAdapter.isLoading = true
+                    tvShowsList.post {
+                        viewModel.loadPopularTvShows()
+                        tvShowsAdapter.isLoading = true
+                    }
                 }
             }
         })
